@@ -11,7 +11,7 @@ let fullBST;
 describe("The Binary Search Tree", () => {
   beforeEach(() => {
     tree = new BinarySearchTree(1);
-    
+
     anotherTree = new BinarySearchTree(10);
     anotherTree.insert(5);
     anotherTree.insert(15);
@@ -134,7 +134,9 @@ Uncomment by removing the 'x'.
   describe("The traverseBreadthFirst method", () => {
     it("should exist on the Tree prototype", () => {
       expect(BinarySearchTree.prototype.traverseBreadthFirst).to.exist;
-      expect(typeof BinarySearchTree.prototype.traverseBreadthFirst).to.equal("function");
+      expect(typeof BinarySearchTree.prototype.traverseBreadthFirst).to.equal(
+        "function"
+      );
     });
 
     it("should traverse across the binary tree before going down", () => {
