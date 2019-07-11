@@ -18,6 +18,7 @@ class LinkedList {
       return this.head;
     }
     const newNode = new Node(value);
+    this.tail.next = newNode;
     this.tail = newNode;
     return newNode;
   }
@@ -29,8 +30,20 @@ class LinkedList {
     return heady;
   }
 
-  findNode(value) {}
-
+  findNode(value) {
+    let result = null;
+    const recursion = (node) => {
+      if (node.value === value) {
+        result = node;
+      } else if (node.next === null) {
+        return;
+      } else {
+        return recursion(node.next);
+      }
+    };
+    recursion(this.head);
+    return result;
+  }
   /*
 +-------------------------+
 | Advanced Requirements!! |
