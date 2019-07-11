@@ -86,7 +86,7 @@ describe("Linked Lists", () => {
     });
   });
 
-  describe.only("The findNode method", () => {
+  describe("The findNode method", () => {
     it("should exist on the LinkedList prototype", () => {
       expect(LinkedList.prototype.findNode).to.exist;
       expect(typeof LinkedList.prototype.findNode).to.equal("function");

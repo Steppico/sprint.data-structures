@@ -38,7 +38,7 @@ describe("Trees", () => {
     });
   });
 
-  describe("The contains method", () => {
+  describe.only("The contains method", () => {
     it("should exist on the Tree prototype", () => {
       expect(Tree.prototype.contains).to.exist;
     });
