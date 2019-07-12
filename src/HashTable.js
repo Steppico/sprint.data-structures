@@ -13,12 +13,24 @@ class HashTable {
 
   retrieve(key) {
     const idx = simpleHash(key, this.limit);
+    if (this.storage.get(idx) === undefined) {
+      return null;
+    }
     return this.storage.get(idx);
   }
 
   remove(key) {
+    let result = false;
     const idx = simpleHash(key, this.limit);
-    this.storage.set(idx, null);
+    let doesExist =
+      this.storage.get(idx) === undefined ? false : this.storage.get(idx);
+    this.storage.each((value, index, collection) => {
+      if (doesExist === value) {
+        collection.splice(index, 1);
+        result = true;
+      }
+    });
+    return result;
   }
 }
 
