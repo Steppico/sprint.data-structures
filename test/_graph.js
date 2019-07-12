@@ -5,7 +5,7 @@ const { isClass } = require("./utilities");
 const Graph = require("../src/Graph");
 
 let graph;
-describe("Graphs", () => {
+describe.only("Graphs", () => {
   beforeEach(() => {
     graph = new Graph();
   });
@@ -44,7 +44,7 @@ describe("Graphs", () => {
       expect(graph.nodes[6]).to.exist;
     });
   });
-
+  // careful here! tests might pass even if method not correct
   describe("The removeNode method", () => {
     it("should exist on the Graph prototype", () => {
       expect(Graph.prototype.removeNode).to.exist;
