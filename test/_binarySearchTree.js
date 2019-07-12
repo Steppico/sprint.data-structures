@@ -78,7 +78,7 @@ describe("The Binary Search Tree", () => {
     });
   });
 
-  describe("The contains method", () => {
+  describe.only("The contains method", () => {
     it("should exist on the Tree prototype", () => {
       expect(BinarySearchTree.prototype.contains).to.exist;
       expect(typeof BinarySearchTree.prototype.contains).to.equal("function");
