@@ -8,15 +8,18 @@ class HashTable {
 
   insert(key, value) {
     const index = simpleHash(key, this.limit);
-    this.storage[index] = value;
+    this.storage.set(index, value);
   }
 
   retrieve(key) {
     const idx = simpleHash(key, this.limit);
-    return this.storage[idx];
+    return this.storage.get(idx);
   }
 
-  remove(key) {}
+  remove(key) {
+    const idx = simpleHash(key, this.limit);
+    this.storage.set(idx, null);
+  }
 }
 
 module.exports = HashTable;
