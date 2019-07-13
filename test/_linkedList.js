@@ -96,7 +96,6 @@ describe("Linked Lists", () => {
       linkedList.appendToTail(3);
       const nodeValue6 = linkedList.appendToTail(6);
       linkedList.appendToTail(2);
-
       expect(linkedList.findNode(6)).to.deep.equal(nodeValue6);
       expect(linkedList.findNode(6).value).to.equal(6);
     });

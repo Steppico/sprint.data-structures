@@ -15,33 +15,32 @@ class LinkedList {
     if (this.head === undefined) {
       this.head = new Node(value);
       this.tail = this.head;
-      return this.head;
+    } else {
+      this.tail.next = new Node(value);
+      this.tail = this.tail.next;
     }
-    const newNode = new Node(value);
-    this.tail.next = newNode;
-    this.tail = newNode;
-    return newNode;
+    return this.tail;
   }
 
   removeHead() {
-    const heady = this.head;
-    this.head = this.head.next;
-    this.tail = this.tail.next;
-    return heady;
+    if (this.head !== undefined) {
+      const oldHead = this.head;
+      this.head = this.head.next;
+      return oldHead;
+    }
   }
 
   findNode(value) {
     let result = null;
-    const recursion = (node) => {
-      if (node.value === value) {
-        result = node;
+    const recurse = (node) => {
+      if (value === node.value) {
+        return (result = node);
       } else if (node.next === null) {
         return;
-      } else {
-        return recursion(node.next);
       }
+      recurse(node.next);
     };
-    recursion(this.head);
+    recurse(this.head);
     return result;
   }
   /*

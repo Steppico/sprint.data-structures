@@ -16,8 +16,8 @@ class Tree {
         result = true;
       }
       if (node.children.length >= 0) {
-        for (let child in node.children) {
-          recursion(node.children[child]);
+        for (let child of node.children) {
+          recursion(child);
         }
       }
     };

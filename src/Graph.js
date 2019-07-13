@@ -41,10 +41,9 @@ class Graph {
     this.nodes[second].splice(indexS, 1);
   }
   hasEdge(first, second) {
-    return this.nodes[first].includes(second) &&
-      this.nodes[second].includes(first)
-      ? true
-      : false;
+    return (
+      this.nodes[first].includes(second) && this.nodes[second].includes(first)
+    );
   }
 }
 module.exports = Graph;
