@@ -12,36 +12,42 @@ class LinkedList {
   }
 
   appendToTail(value) {
-    if (this.head === undefined) {
+    if (this.head) {
+      const recurse = (head) => {
+        if (head.next === null) {
+          this.tail = new Node(value);
+          head.next = this.tail;
+        } else {
+          recurse(head.next);
+        }
+        return this.tail;
+      };
+      return recurse(this.head);
+    } else {
       this.head = new Node(value);
       this.tail = this.head;
-    } else {
-      this.tail.next = new Node(value);
-      this.tail = this.tail.next;
+      return this.head;
     }
-    return this.tail;
   }
 
   removeHead() {
-    if (this.head !== undefined) {
-      const oldHead = this.head;
-      this.head = this.head.next;
-      return oldHead;
-    }
+    const oldHead = this.head;
+    this.head = this.head.next;
+    return oldHead;
   }
 
   findNode(value) {
-    let result = null;
     const recurse = (node) => {
-      if (value === node.value) {
-        return (result = node);
+      if (node.value === value) {
+        return node;
       } else if (node.next === null) {
-        return;
+        return null;
+      } else {
+        return recurse(node.next);
       }
-      recurse(node.next);
     };
-    recurse(this.head);
-    return result;
+
+    return recurse(this.head);
   }
   /*
 +-------------------------+
@@ -53,15 +59,65 @@ Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 */
 
-  forEach(callback) {}
+  forEach(callback) {
+    const recurse = (node) => {
+      if (node === null) {
+        return;
+      } else {
+        callback(node.value);
+        return recurse(node.next);
+      }
+    };
+    return recurse(this.head);
+  }
 
-  print() {}
+  print() {
+    let result = "";
+    const recurse = (node) => {
+      if (node.next === null) {
+        result += node.value;
+      } else {
+        result += node.value + ", ";
+        return recurse(node.next);
+      }
+    };
+    recurse(this.head);
+    return result;
+  }
 
-  insertHead(value) {}
+  insertHead(value) {
+    const previousHead = this.head;
+    this.head = new Node(value);
+    this.head.next = previousHead;
+    return this.head;
+  }
 
-  insertAfter(refNode, value) {}
+  insertAfter(refNode, value) {
+    const recurse = (node) => {
+      if (node === refNode) {
+        const previousNext = node.next;
+        node.next = new Node(value);
+        node.next.next = previousNext;
+        return node;
+      } else {
+        return recurse(node.next);
+      }
+    };
+    return recurse(this.head);
+  }
 
-  removeAfter(refNode) {}
+  removeAfter(refNode) {
+    if (!refNode) return;
+    const recurse = (node) => {
+      if (node === refNode) {
+        node.next = node.next.next;
+        return node;
+      } else {
+        return recurse(node.next);
+      }
+    };
+    return recurse(this.head);
+  }
 }
 
 module.exports = LinkedList;
