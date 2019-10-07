@@ -5,7 +5,7 @@ const { isClass } = require("./utilities");
 const Tree = require("../src/Tree");
 
 let tree;
-describe("Trees", () => {
+describe.only("Trees", () => {
   beforeEach(() => {
     tree = new Tree(1);
   });
@@ -75,7 +75,7 @@ requirements for ALL data structures in this exercise.
 Uncomment by removing the 'x'.
 */
 
-  xdescribe("The traverseDepthFirst method", () => {
+  describe("The traverseDepthFirst method", () => {
     it("should exist on the Tree prototype", () => {
       expect(Tree.prototype.traverseDepthFirst).to.exist;
     });
@@ -97,7 +97,7 @@ Uncomment by removing the 'x'.
     });
   });
 
-  xdescribe("The traverseBreadthFirst method", () => {
+  describe("The traverseBreadthFirst method", () => {
     it("should exist on the Tree prototype", () => {
       expect(Tree.prototype.traverseBreadthFirst).to.exist;
     });
@@ -116,6 +116,18 @@ Uncomment by removing the 'x'.
       const x = (node) => node;
       tree.traverseBreadthFirst(x);
       expect(x).to.be.a("function");
+    });
+  });
+  describe("The remove method", () => {
+    it("should exist on the Tree prototype", () => {
+      expect(Tree.prototype.remove).to.exist;
+    });
+    it("should remove a child node", () => {
+      tree.addChild(2);
+      tree.addChild(3);
+      expect(tree.contains(3)).to.equal(true);
+      expect(tree.remove(3)[0].value).to.equal(3);
+      expect(tree.contains(3)).to.equal(false);
     });
   });
 });

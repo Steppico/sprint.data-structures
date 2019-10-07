@@ -5,24 +5,39 @@ class Tree {
   }
 
   addChild(value) {
-    const node = new Tree(value);
-    this.children.push(node);
+    this.children.push(new Tree(value));
   }
 
   contains(value) {
     let result = false;
-    const recursion = (node) => {
+    const recurse = (node) => {
       if (node.value === value) {
         result = true;
-      }
-      if (node.children.length >= 0) {
-        for (let child of node.children) {
-          recursion(child);
+      } else {
+        for (let i = 0; i < node.children.length; i++) {
+          recurse(node.children[i]);
         }
       }
     };
-    recursion(this);
+
+    recurse(this);
     return result;
+  }
+
+  remove(value) {
+    const recurse = (node) => {
+      if (node.children) {
+        for (let i = 0; i < node.children.length; i++) {
+          if (node.children[i].value === value) {
+            return node.children.splice(i, 1);
+          } else {
+            recurse(node.children[i]);
+          }
+        }
+      }
+    };
+
+    return recurse(this);
   }
 
   /*
@@ -35,9 +50,37 @@ Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 
 */
-  traverseDepthFirst(fn) {}
+  traverseDepthFirst(fn) {
+    const recurse = (node) => {
+      if (node.children.length !== 0) {
+        for (let i = 0; i < node.children.length; i++) {
+          recurse(node.children[i]);
+        }
+        fn(node);
+      } else {
+        fn(node);
+      }
+    };
+    recurse(this);
+  }
 
-  traverseBreadthFirst(fn) {}
+  traverseBreadthFirst(fn) {
+    let currentlyRecursing = [];
+    fn(this.value);
+    const recurse = (node) => {
+      if (node.children.length !== 0) {
+        for (let i = 0; i < node.children.length; i++) {
+          currentlyRecursing.push(node.children[i]);
+        }
+        currentlyRecursing.forEach((child) => fn(child.value));
+        currentlyRecursing = [];
+        for (let j = 0; j < node.children.length; j++) {
+          recurse(node.children[j]);
+        }
+      }
+    };
+    recurse(this);
+  }
 }
 
 module.exports = Tree;
